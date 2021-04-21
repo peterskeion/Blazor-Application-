@@ -1,0 +1,61 @@
+﻿@page "/viewcontact"
+
+@using DataAccess
+@using DataAccess.Models
+@using Microsoft.Extensions.Configuration
+@using TelerikBlazorApp2.Models
+
+@inject IPeopleData _db
+
+<h1>View Contact</h1>
+
+<p>Current count: </p>
+<body>
+    <EditForm Model="@newContact" OnValidSubmit="@InsertContact">
+
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <label for="lname">Last name:</label><InputText id="lname" @bind-Value="newContact.lastName" /><br><br>
+        <label for="fname">First name:</label><InputText id="fname" @bind-Value="newContact.firstName" /><br><br>
+        <label for="bdate">Birth Date:</label><InputDate type="date" id="start" name="bdate" min="1800-01-01" max="2018-12-31" @bind-Value="newContact.birthDate"/><br><br>
+        <label for="pnumber">Phone Number:</label><InputText id="pnumber" @bind-Value="newContact.PhoneNumber" /><br><br>
+
+
+        <button type="submit" class="btn btn-primary" onclick="location.href='addcontact';">Save</button>
+    </EditForm>
+</body>
+<br>
+<br>
+<button class="btn btn-primary" onclick="location.href='addcontact';">Cancel</button>
+
+
+@code {
+    private DisplayContact newContact = new DisplayContact();
+
+
+    private async Task InsertContact()
+    {
+
+        Random rnd = new Random();
+
+
+
+        ContactModel c = new ContactModel {
+            id = rnd.Next(1, 1000)+"",
+            firstName =newContact.firstName,
+            lastName=newContact.lastName,
+            PhoneNumber=newContact.PhoneNumber,
+            birthDate=newContact.birthDate   };
+
+    await _db.InsertContact(c);
+
+    newContact = new DisplayContact();
+
+
+}
+
+
+
+}
+

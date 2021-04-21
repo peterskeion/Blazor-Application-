@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelerikBlazorApp2", "TelerikBlazorApp2\TelerikBlazorApp2.csproj", "{64875CFC-94AC-4A25-B4A5-6F8109E4B2A4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "..\TestApplication\DataAccess\DataAccess.csproj", "{DC9E4746-D2F4-40B9-8E4B-56517A32072F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64875CFC-94AC-4A25-B4A5-6F8109E4B2A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64875CFC-94AC-4A25-B4A5-6F8109E4B2A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64875CFC-94AC-4A25-B4A5-6F8109E4B2A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64875CFC-94AC-4A25-B4A5-6F8109E4B2A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC9E4746-D2F4-40B9-8E4B-56517A32072F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC9E4746-D2F4-40B9-8E4B-56517A32072F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC9E4746-D2F4-40B9-8E4B-56517A32072F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC9E4746-D2F4-40B9-8E4B-56517A32072F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4D232B9E-9282-44AD-8CB0-F1908BCE2ED5}
+	EndGlobalSection
+EndGlobal

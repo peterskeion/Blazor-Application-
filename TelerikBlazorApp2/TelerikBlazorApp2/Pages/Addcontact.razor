@@ -1,0 +1,69 @@
+﻿@page "/addcontact"
+
+@using DataAccess
+@using DataAccess.Models
+@using Microsoft.Extensions.Configuration
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+
+@inject IJSRuntime JSRuntime;
+@inject IPeopleData _db
+
+<h1>Add Contact</h1>
+@if (contacts is null)
+{
+    <p><button class="btn btn-success" onclick="location.href='viewcontact';"> Add contact</button></p>
+    <p>Loading......</p>
+
+}
+else
+{
+    <p><button class="btn btn-success" onclick="location.href='viewcontact';"> Add contact</button></p>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone Number</th>
+                <th>Birth Date</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var contact in contacts)
+            {
+                <tr>
+                    <td>@contact.firstName</td>
+                    <td>@contact.lastName</td>
+                    <td>@contact.PhoneNumber</td>
+                    <td>@contact.birthDate</td>
+                    <td> <button value="@contact.id" @onclick="() => delete(contact)">Edit/Delete</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+
+@code {
+
+    private List<ContactModel> contacts;
+    public string test;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        contacts = await _db.GetContact();
+    }
+
+    public async void delete(ContactModel contact)
+    {
+
+        test= contact.id;
+        await JSRuntime.InvokeAsync<string>("open", $"/editcontact/{contact.id}","_blank");
+    }
+
+
+}
+
+

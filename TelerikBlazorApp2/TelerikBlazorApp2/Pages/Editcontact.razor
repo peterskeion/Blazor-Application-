@@ -1,0 +1,89 @@
+@page "/editcontact/{currentCount}"
+
+
+@using DataAccess
+@using DataAccess.Models
+@using Microsoft.Extensions.Configuration
+
+
+@inject IJSRuntime JSRuntime;
+@inject IPeopleData _db
+
+<h1>Edit or Delete contact</h1>
+
+
+<p><button class="btn btn-success" onclick="location.href='viewcontact';"> Add contact</button></p>
+
+@if (newContact != null)
+{
+    <EditForm Model="@newContact" OnValidSubmit="@EditContact">
+
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <label for="lname">Last name:</label><InputText id="lname" @bind-Value="newContact.lastName" /><br><br>
+        <label for="fname">First name:</label><InputText id="fname" @bind-Value="newContact.firstName" /><br><br>
+        <label for="bdate">Birth Date:</label><InputDate type="date" id="start" name="bdate" min="1800-01-01" max="2018-12-31" @bind-Value="newContact.birthDate" /><br><br>
+        <label for="pnumber">Phone Number:</label><InputText id="pnumber" @bind-Value="newContact.PhoneNumber" /><br><br>
+
+
+        <button type="submit" class="btn btn-primary" @onclick="@Delete">Delete</button>
+        <button type="submit" class="btn btn-primary" onclick="location.href='addcontact';">Cancel</button>
+        <button type="submit" class="btn btn-primary" @onclick="@InsertContact">Save</button>
+    </EditForm>
+}
+<p>@currentCount</p>
+@code {
+    private List<ContactModel> contacts;
+    private ContactModel newContact;
+
+    [Parameter]
+    public string currentCount { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        //the param will be set now
+        var test = currentCount;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        contacts = await _db.GetContact();
+
+        foreach (ContactModel contact in contacts)
+        {
+            if (contact.id == currentCount)
+            {
+                newContact = contact;
+            }
+        }
+    }
+
+    async void InsertContact()
+    {
+        // await _db.Delete(currentCount);
+
+        // Random check = new Random();
+
+        // newContact.id = check.Next(1, 1000) + "";
+
+        //  await _db.InsertContact(newContact);
+
+        await _db.updateContact(newContact);
+    }
+    public async void EditContact()
+    {
+
+        await JSRuntime.InvokeAsync<string>("open", $"/addContact");
+
+    }
+    public async void Delete()
+    {
+        await _db.Delete(currentCount);
+
+        await JSRuntime.InvokeAsync<string>("open", $"/addContact");
+
+    }
+
+}
+
